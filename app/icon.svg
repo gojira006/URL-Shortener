@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
+  <title id="title">Shortly icon</title>
+  <desc id="description">Two interlocking links on a warm cream background.</desc>
+  <rect width="512" height="512" rx="116" fill="#fffdf8"/>
+  <path d="M208 329.5l-20.5 20.5c-40 40-104.8 40-144.8 0s-40-104.8 0-144.8l74.4-74.4c40-40 104.8-40 144.8 0 13.8 13.8 23.4 31.4 27.5 50.5" fill="none" stroke="#275c48" stroke-linecap="round" stroke-width="49"/>
+  <path d="M304 182.5l20.5-20.5c40-40 104.8-40 144.8 0s40 104.8 0 144.8l-74.4 74.4c-40 40-104.8 40-144.8 0-13.8-13.8-23.4-31.4-27.5-50.5" fill="none" stroke="#275c48" stroke-linecap="round" stroke-width="49"/>
+  <path d="M178 256h156" fill="none" stroke="#d9ef73" stroke-linecap="round" stroke-width="49"/>
+  <circle cx="389" cy="117" r="30" fill="#ef744c"/>
+</svg>
