@@ -2,6 +2,7 @@
 node_modules/
 .next/
 .npm-cache/
+work/
 
 # Local environment secrets (keep .env.example tracked)
 .env.local
