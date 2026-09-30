@@ -10,7 +10,8 @@ export async function updateSession(request: NextRequest) {
         items.forEach(({ name, value }) => request.cookies.set(name, value));
         response = NextResponse.next({ request });
         items.forEach(({ name, value, options }) => {
-          const { encode: _encode, ...responseOptions } = options;
+          const responseOptions = { ...options };
+          delete responseOptions.encode;
           response.cookies.set(name, value, responseOptions);
         });
       },

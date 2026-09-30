@@ -56,6 +56,12 @@
       "sourceType": "autoskills-registry",
       "computedHash": "4c09c107aa64d7722369c3856ba8743ea11e7450e4f1227cb72a0d375d1e4fd5"
     },
+    "supabase-server": {
+      "source": "supabase/server",
+      "sourceType": "github",
+      "skillPath": "skills/supabase-server/SKILL.md",
+      "computedHash": "c4c29a1ac1c1c11da456604fb07127d69524afedbc358e4ac41540db013d0fef"
+    },
     "tailwind-css-patterns": {
       "source": "giuseppe-trisciuoglio/developer-kit",
       "sourceType": "autoskills-registry",

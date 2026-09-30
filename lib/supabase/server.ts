@@ -9,7 +9,8 @@ export async function createClient() {
       setAll(items: { name: string; value: string; options: CookieOptions }[]) {
         try {
           items.forEach(({ name, value, options }) => {
-            const { encode: _encode, ...responseOptions } = options;
+            const responseOptions = { ...options };
+            delete responseOptions.encode;
             cookieStore.set(name, value, responseOptions);
           });
         } catch { /* Server Components cannot write cookies. */ }
