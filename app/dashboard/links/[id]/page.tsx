@@ -1,0 +1,14 @@
+import Link from "next/link";
+import Image from "next/image";
+import { headers } from "next/headers";
+import { notFound } from "next/navigation";
+import { AnalyticsCharts } from "@/components/analytics-charts";
+import { getAnalytics } from "@/lib/analytics";
+import { createClient } from "@/lib/supabase/server";
+
+export default async function AnalyticsPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ days?: string }> }) {
+  const { id } = await params; const query = await searchParams; const days = query.days === "30" || query.days === "90" ? Number(query.days) : 7;
+  const supabase = await createClient(); const { data: link } = await supabase.from("links").select("id,slug,target_url").eq("id", id).maybeSingle(); if (!link) notFound();
+  const analytics = await getAnalytics(id, days); const h = await headers(); const host = h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:3000"; const protocol = h.get("x-forwarded-proto") ?? "http"; const url = `${protocol}://${host}/${link.slug}`;
+  return <main className="mx-auto max-w-6xl px-6 py-10 sm:py-14"><Link className="eyebrow hover:text-[#ef744c]" href="/dashboard">← Back to link desk</Link><div className="reveal mt-7 flex flex-col justify-between gap-6 lg:flex-row lg:items-start"><div><p className="eyebrow">Performance report</p><h1 className="mt-2 text-5xl">A closer look.</h1><a className="mt-5 inline-block font-bold text-emerald-800 underline decoration-lime-300 decoration-4 underline-offset-4 hover:text-[#ef744c]" href={url}>{url}</a><p className="mt-3 max-w-xl truncate text-sm text-stone-500">{link.target_url}</p></div><div className="paper-card flex items-center gap-4 p-3"><Image className="h-24 w-24 rounded-xl bg-white p-1" src={`/api/qr?url=${encodeURIComponent(url)}`} alt={`QR code for ${url}`} width={96} height={96} unoptimized /><a className="text-sm font-bold text-emerald-800 hover:text-[#ef744c]" href={`/api/qr?url=${encodeURIComponent(url)}`} download="short-link-qr.png">Download<br />QR code ↓</a></div></div><div className="reveal reveal-2 mt-10 grid gap-5 md:grid-cols-[220px_1fr]"><section className="rounded-2xl bg-emerald-900 p-6 text-white shadow-[0_8px_0_#153c2e]"><p className="text-xs font-bold uppercase tracking-[.16em] text-lime-200">Total clicks</p><p className="mt-2 font-serif text-5xl font-bold">{analytics.total}</p><p className="mt-3 text-xs text-emerald-100">All time, excluding bots</p></section><div className="paper-card flex flex-wrap items-center gap-2 p-4"><span className="mr-2 text-sm font-bold text-stone-500">Window</span>{[7, 30, 90].map((value) => <Link key={value} className={`rounded-xl px-4 py-2 text-sm font-bold ${days === value ? "bg-lime-200 text-emerald-950" : "text-stone-600 hover:bg-stone-100"}`} href={`/dashboard/links/${id}?days=${value}`}>{value} days</Link>)}</div></div><div className="reveal reveal-3 mt-6"><AnalyticsCharts analytics={analytics} /></div></main>;
+}

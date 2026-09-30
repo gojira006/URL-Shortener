@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --ink: #17231d; --paper: #f7f4ec; --line: #d9d5c9; }
+* { border-color: var(--line); }
+html { background: var(--paper); }
+body { min-height: 100vh; color: var(--ink); background: radial-gradient(circle at 82% -5%, rgba(217,246,106,.54), transparent 24rem), radial-gradient(circle at -5% 50%, rgba(239,116,76,.10), transparent 26rem), var(--paper); font-family: "Aptos", "Trebuchet MS", sans-serif; }
+body::before { content: ""; pointer-events: none; position: fixed; inset: 0; opacity: .35; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E"); }
+@layer base { h1, h2, h3 { font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif; letter-spacing: -.045em; } input { @apply w-full rounded-xl border bg-white/80 px-4 py-3 text-sm shadow-sm outline-none transition placeholder:text-stone-400 focus:border-emerald-700 focus:ring-4 focus:ring-lime-200/60; } button { @apply rounded-xl font-semibold transition duration-200 disabled:cursor-not-allowed disabled:opacity-50; } a { @apply transition-colors; } }
+@layer components { .paper-card { @apply rounded-2xl border border-stone-300/80 bg-[#fffdf8]/90 shadow-[0_10px_30px_rgba(41,56,43,0.06)]; } .action-button { @apply inline-flex items-center justify-center rounded-xl bg-emerald-900 px-5 py-3 text-sm font-bold text-white shadow-[0_5px_0_#153c2e] transition hover:-translate-y-0.5 hover:bg-emerald-800 hover:shadow-[0_7px_0_#153c2e] active:translate-y-0 active:shadow-[0_2px_0_#153c2e]; } .quiet-button { @apply inline-flex items-center justify-center rounded-xl border border-stone-300 bg-white/70 px-5 py-3 text-sm font-bold text-stone-700 hover:border-emerald-800 hover:bg-lime-100; } .eyebrow { @apply text-xs font-bold uppercase tracking-[.22em] text-emerald-800; } }
+@media (prefers-reduced-motion: no-preference) { .reveal { animation: rise .65s cubic-bezier(.2,.7,.2,1) both; } .reveal-2 { animation-delay: .11s; } .reveal-3 { animation-delay: .22s; } .reveal-4 { animation-delay: .33s; } .float { animation: float 5s ease-in-out infinite; } .table-row { animation: rise .4s ease-out both; } }
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes float { 50% { transform: translateY(-8px) rotate(2deg); } }

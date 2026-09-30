@@ -1,0 +1,3 @@
+import Link from "next/link";
+import { LogoutButton } from "@/components/logout-button";
+export default function DashboardLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <><header className="sticky top-0 z-10 border-b border-stone-300/80 bg-[#f7f4ec]/85 backdrop-blur"><div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4"><Link className="font-serif text-2xl font-bold tracking-tight text-emerald-950" href="/dashboard">Shortly<span className="text-[#ef744c]">.</span></Link><div className="flex items-center gap-4"><span className="hidden text-xs font-bold uppercase tracking-[.16em] text-stone-500 sm:block">Link desk</span><LogoutButton /></div></div></header>{children}</>; }

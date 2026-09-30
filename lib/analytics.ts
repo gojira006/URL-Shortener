@@ -1,0 +1,5 @@
+import "server-only";
+import { createClient } from "@/lib/supabase/server";
+import type { Analytics, AnalyticsRow } from "@/lib/types";
+async function rows(functionName: "clicks_per_day" | "clicks_by_country" | "clicks_by_device" | "clicks_by_browser" | "clicks_by_referrer", linkId: string, days: number): Promise<AnalyticsRow[]> { const supabase = await createClient(); const { data, error } = await supabase.rpc(functionName, { p_link_id: linkId, p_days: days }); if (error) return []; return (data ?? []) as unknown as AnalyticsRow[]; }
+export async function getAnalytics(linkId: string, days: number): Promise<Analytics> { const supabase = await createClient(); const { count } = await supabase.from("clicks").select("id", { count: "exact", head: true }).eq("link_id", linkId).eq("is_bot", false); const [perDay, country, device, browser, referrer] = await Promise.all([rows("clicks_per_day", linkId, days), rows("clicks_by_country", linkId, days), rows("clicks_by_device", linkId, days), rows("clicks_by_browser", linkId, days), rows("clicks_by_referrer", linkId, days)]); return { total: count ?? 0, perDay, country, device, browser, referrer }; }
